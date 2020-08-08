@@ -31,10 +31,10 @@ function update_time(t) {
 }
 
 function init() {
-    const [class_name, name, start_time, doodling, doodling_speed] = window.location.hash.substr(1).split("/")
+    const [lang, class_name, name, start_time, doodling, doodling_speed] = window.location.hash.substr(1).split("/")
 
-    if (!class_name || !name || !start_time) {
-        log("Erreur: Il manque des informations dans l'url (format: index.html#Nom du cours/Sous Titre/00h00/doodles/3000)")
+    if (!lang || !class_name || !name || !start_time) {
+        log("Error: Missing url parts (format: index.html#en/Title/Subtitle/00:00/doodles/3000)")
         return
     }
 
@@ -42,13 +42,18 @@ function init() {
         init_doodling(doodling_speed || null)
     }
 
+    // ================== Translations ===================
+    document.querySelectorAll(".translate").forEach(el => {
+        el.innerHTML = el.getAttribute(`data-lang-${lang}`)
+    })
+
     // ================== Titles ===================
     tag_class_name.textContent = decodeURIComponent(class_name)
     tag_name.textContent = decodeURIComponent(name)
 
     // ================== Time =====================
 
-    const [heure, minutes] = start_time.split("h")
+    const [heure, minutes] = start_time.split(/[h\:]/)
     const t = new Date()
     t.setHours(heure)
     t.setMinutes(minutes)

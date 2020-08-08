@@ -54,14 +54,13 @@ h2 {
 
 #status .future {
     text-align: left;
-    width: 395px;
-
 }
 #status .future .countdown {
     font-weight: bold;
+    display: inline-block;
+    width: 160px;
 }
 
 #status .past span {
-    text-decoration: underline;
     font-weight: bold;
 }
